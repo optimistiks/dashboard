@@ -2,6 +2,8 @@
     "name": "dashboard",
     "version": "0.0.0",
     "devDependencies": {
-        "sockjs": "~0.3"
+        "sockjs": "~0.3",
+        "forever": "~0.11",
+        "mysql": "~2.3"
     }
 }
