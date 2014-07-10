@@ -3,6 +3,7 @@ var sockjs = require('sockjs');
 var net = require('net');
 var mysql = require('mysql');
 var orderQtyDaily = require('./js/order-qty-daily/index');
+var orderQtyMonthly = require('./js/order-qty-monthly/index');
 
 var MS_HOST = '127.0.0.1';
 var MS_PORT = 8888;
@@ -22,27 +23,31 @@ var connection = mysql.createConnection({
 
 connection.connect();
 var query = connection.query('SELECT * FROM sender_orders so WHERE so.real = 1');
+console.log('Loading started');
 query
     .on('error', function (err) {
         console.error('Error', err);
         // Handle error, an 'end' event will be emitted after this as well
     })
-    .on('fields', function (fields) {
-        console.log('Fields');
+    //.on('fields', function (fields) {
+        //console.log('Fields', fields);
         // the field packets for the rows to follow
-    })
+    //})
     .on('result', function (row) {
         orderQtyDaily.recalculate(row);
-        // Pausing the connnection is useful if your processing involves I/O
-        console.log('Result', orderQtyDaily.getValue())
+        orderQtyMonthly.recalculate(row);
+        // Pausing the connection is useful if your processing involves I/O
     })
     .on('end', function () {
-        console.log('End', orderQtyDaily.getValue());
+        console.log('Loading finished');
+        console.log('Orders daily:', orderQtyDaily.getValue());
+        console.log('Orders monthly:', orderQtyMonthly.getValue());
         chat.on('connection', function (conn) {
             connections.push(conn);
             var number = connections.length;
             conn.write("Welcome, User " + number);
-            conn.write("Orders: " + orderQtyDaily.getValue());
+            conn.write("Orders daily " + orderQtyDaily.getValue());
+            conn.write("Orders monthly " + orderQtyMonthly.getValue());
             conn.on('data', function (message) {
                 for (var ii = 0; ii < connections.length; ii++) {
                     connections[ii].write("User " + number + " says: " + message);
