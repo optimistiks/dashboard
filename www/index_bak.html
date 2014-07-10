@@ -1,0 +1,42 @@
+<html ng-app>
+<head>
+<script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+<script src="../bower_components/angular/angular.min.js"></script>
+
+<script>
+    var sock = new SockJS('http://localhost:9999');
+    function ChatCtrl($scope) {
+        $scope.messages = [];
+
+        sock.onmessage = function(e) {
+            $scope.messages.push(e.data);
+            $scope.$apply();
+        };
+    }
+</script>
+
+</head>
+
+<body>
+
+<div ng-controller="ChatCtrl">
+    <p ng-repeat="message in messages">{{ message }}</p>
+    <ul>
+        <li>Количество активных магазинов за день (с учетом категории)</li>
+        <li>Количество активных магазинов за месяц (с учетом категории)</li>
+        <li>Количество новых магазинов за день (с учетом категории)</li>
+        <li>Количество новых магазинов за месяц (с учетом категории)</li>
+        <li>Количество заказов за день (с учетом категории)</li>
+        <li>Количество заказов за месяц (с учетом категории)</li>
+        <li>% застрахованных заказов</li>
+        <li>% заказов с СМС уведомлением</li>
+        <li>кол-во СМС уведомлений</li>
+        <li>Прибыль всего по дисконтам, страхованию, смс, в среднем с 1 заказа</li>
+        <li>Заказы в разбивке по СД</li>
+        <li>Прибыль от заказов в разбивке по СД</li>
+        <li>Прибыль в разбивке по категориям ИМ</li>
+    </ul>
+</div>
+
+</body>
+</html>

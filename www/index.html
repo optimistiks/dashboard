@@ -1,42 +1,43 @@
-<html ng-app>
+<!DOCTYPE html>
+<html ng-app="dashboard">
 <head>
-<script src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
-<script src="../bower_components/angular/angular.min.js"></script>
-
-<script>
-    var sock = new SockJS('http://localhost:9999');
-    function ChatCtrl($scope) {
-        $scope.messages = [];
-
-        sock.onmessage = function(e) {
-            $scope.messages.push(e.data);
-            $scope.$apply();
-        };
-    }
-</script>
-
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+  <link href="app.less" type="text/css" rel="stylesheet/less">
 </head>
-
 <body>
 
-<div ng-controller="ChatCtrl">
-    <p ng-repeat="message in messages">{{ message }}</p>
-    <ul>
-        <li>Количество активных магазинов за день (с учетом категории)</li>
-        <li>Количество активных магазинов за месяц (с учетом категории)</li>
-        <li>Количество новых магазинов за день (с учетом категории)</li>
-        <li>Количество новых магазинов за месяц (с учетом категории)</li>
-        <li>Количество заказов за день (с учетом категории)</li>
-        <li>Количество заказов за месяц (с учетом категории)</li>
-        <li>% застрахованных заказов</li>
-        <li>% заказов с СМС уведомлением</li>
-        <li>кол-во СМС уведомлений</li>
-        <li>Прибыль всего по дисконтам, страхованию, смс, в среднем с 1 заказа</li>
-        <li>Заказы в разбивке по СД</li>
-        <li>Прибыль от заказов в разбивке по СД</li>
-        <li>Прибыль в разбивке по категориям ИМ</li>
-    </ul>
-</div>
+  <!-- Livereload script for development only (stripped during dist build) -->
+  <script src="http://localhost:35729/livereload.js" data-concat="false"></script>
+
+  <!-- JS from Bower Components -->
+  <script src="bower_components/less.js/dist/less-1.6.2.js" data-concat="false"></script>
+  <script src="bower_components/jquery/jquery.js"></script>
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/underscore/underscore.js"></script>
+  <script src="bower_components/moment/moment.js"></script>
+  <script src="bower_components/angular/angular.js"></script>
+  <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script src="bower_components/angular-animate/angular-animate.js"></script>
+  <script src="bower_components/angular-resource/angular-resource.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+  <script src="bower_components/angular-ui-utils/ui-utils.js"></script>
+  <!-- Add New Bower Component JS Above -->
+
+
+  <!-- Main App JS -->
+  <script src="app.js"></script>
+  <!-- Add New Component JS Above -->
+
+  <div>
+    <div id="content" class="container">
+      <div class="row">
+        <div ui-view>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
