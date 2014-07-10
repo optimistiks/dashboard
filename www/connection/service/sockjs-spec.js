@@ -2,10 +2,12 @@ describe('sockjs', function() {
 
   beforeEach(module('connection'));
 
-  it('should ...', inject(function(sockjs) {
-    expect(1).toEqual(1);
-	//expect(sockjs.doSomething()).toEqual('something');
-
+  it('should create a socket instance', inject(function(sockjs) {
+    expect(sockjs.callbacks).toBeDefined();
+    expect(sockjs.setHandler).toBeDefined();
+    expect(sockjs.removeHandler).toBeDefined();
+    expect(sockjs.send).toBeDefined();
+    expect(sockjs.close).toBeDefined();
   }));
 
 });
