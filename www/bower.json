@@ -23,6 +23,7 @@
     "moment": "~2.5",
     "less.js": "~1.6",
     "font-awesome": "~4.0",
-    "bower-sockjs-client": "~0.3"
+    "bower-sockjs-client": "~0.3",
+    "highmaps-release": "~1.0"
   }
 }
