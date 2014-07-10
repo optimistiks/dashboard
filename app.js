@@ -2,7 +2,7 @@ var http = require('http');
 var sockjs = require('sockjs');
 var net = require('net');
 var mysql = require('mysql');
-var orderQuantityMetric = require('./js/order-quantity-metric/index');
+var orderQtyDaily = require('./js/order-qty-daily/index');
 
 var MS_HOST = '127.0.0.1';
 var MS_PORT = 8888;
@@ -32,17 +32,17 @@ query
         // the field packets for the rows to follow
     })
     .on('result', function (row) {
-        orderQuantityMetric.recalculate(row);
+        orderQtyDaily.recalculate(row);
         // Pausing the connnection is useful if your processing involves I/O
-        console.log('Result', orderQuantityMetric.getValue())
+        console.log('Result', orderQtyDaily.getValue())
     })
     .on('end', function () {
-        console.log('End', orderQuantityMetric.getValue());
+        console.log('End', orderQtyDaily.getValue());
         chat.on('connection', function (conn) {
             connections.push(conn);
             var number = connections.length;
             conn.write("Welcome, User " + number);
-            conn.write("Orders: " + orderQuantityMetric.getValue());
+            conn.write("Orders: " + orderQtyDaily.getValue());
             conn.on('data', function (message) {
                 for (var ii = 0; ii < connections.length; ii++) {
                     connections[ii].write("User " + number + " says: " + message);
