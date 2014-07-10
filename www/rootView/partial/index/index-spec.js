@@ -1,6 +1,6 @@
 describe('IndexCtrl', function() {
 
-	beforeEach(module('rootView'));
+	beforeEach(module('rootView', 'connection'));
 
 	var scope,ctrl;
 

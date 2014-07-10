@@ -44,8 +44,6 @@ query
         console.log('Orders monthly:', orderQtyMonthly.getValue());
         chat.on('connection', function (conn) {
             connections.push(conn);
-            var number = connections.length;
-            conn.write("Welcome, User " + number);
             conn.write("Orders daily " + orderQtyDaily.getValue());
             conn.write("Orders monthly " + orderQtyMonthly.getValue());
             conn.on('data', function (message) {
