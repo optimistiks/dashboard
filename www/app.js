@@ -1,9 +1,9 @@
-angular.module('dashboard', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ngAnimate', 'connection']);
+angular.module('dashboard', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ngAnimate', 'connection', 'rootView']);
 
 angular.module('dashboard').config(function($stateProvider, $urlRouterProvider) {
 
     /* Add New States Above */
-    $urlRouterProvider.otherwise('/home');
+    $urlRouterProvider.otherwise('/');
 
 });
 

@@ -22,6 +22,10 @@
       {
         "name": "connection",
         "file": "connection/connection.js"
+      },
+      {
+        "name": "rootView",
+        "file": "rootView/rootView.js"
       }
     ]
   }
