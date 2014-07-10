@@ -24,6 +24,8 @@
     "less.js": "~1.6",
     "font-awesome": "~4.0",
     "bower-sockjs-client": "~0.3",
-    "highmaps-release": "~1.0"
+    "highmaps-release": "~1.0",
+    "russia-map": "http://code.highcharts.com/mapdata/countries/ru/custom/ru-all-disputed.js",
+    "dark-unica-theme": "https://raw.githubusercontent.com/highslide-software/highcharts.com/master/js/themes/dark-unica.js"
   }
 }

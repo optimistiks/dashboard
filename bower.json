@@ -1,7 +1,0 @@
-{
-    "name": "dashboard",
-    "version": "0.0.0",
-    "dependencies": {
-        "angular": "latest"
-    }
-}

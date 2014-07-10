@@ -47,14 +47,10 @@ query
             conn.write("Orders daily " + orderQtyDaily.getValue());
             conn.write("Orders monthly " + orderQtyMonthly.getValue());
             conn.on('data', function (message) {
-                for (var ii = 0; ii < connections.length; ii++) {
-                    connections[ii].write("User " + number + " says: " + message);
-                }
+
             });
             conn.on('close', function () {
-                for (var ii = 0; ii < connections.length; ii++) {
-                    connections[ii].write("User " + number + " has disconnected");
-                }
+
             });
         });
         chat.installHandlers(server);
