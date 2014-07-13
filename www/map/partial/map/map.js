@@ -58,7 +58,7 @@ angular.module('map').controller('MapCtrl', function ($scope) {
 
             var regions = svg.append('g');
             var points = svg.append('g');
-            var arcs = svg.append('g');
+            var lines = svg.append('g');
 
             regions
                 .attr("class", "russia")
@@ -114,7 +114,7 @@ angular.module('map').controller('MapCtrl', function ($scope) {
                 }
             ];
 
-            var pathArcs = arcs.selectAll(".arc")
+            var pathArcs = lines.selectAll(".arc")
                 .data(links);
 
             //enter
