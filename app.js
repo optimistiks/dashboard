@@ -1,7 +1,7 @@
 var http = require('http');
 var sockjs = require('sockjs');
 var net = require('net');
-var mysql = require('mysql');
+var multiship = require('./js/multiship/index');
 var orderQtyDaily = require('./js/order-qty-daily/index');
 var orderQtyMonthly = require('./js/order-qty-monthly/index');
 
@@ -14,29 +14,12 @@ var SJS_PORT = 9999;
 var connections = [];
 var chat = sockjs.createServer();
 var server = http.createServer();
-var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'multiship',
-    password: 'multiship',
-    database: 'multiship'
-});
 
-connection.connect();
-var query = connection.query('SELECT * FROM sender_orders so WHERE so.real = 1');
 console.log('Loading started');
-query
-    .on('error', function (err) {
-        console.error('Error', err);
-        // Handle error, an 'end' event will be emitted after this as well
-    })
-    //.on('fields', function (fields) {
-        //console.log('Fields', fields);
-        // the field packets for the rows to follow
-    //})
+multiship.orders()
     .on('result', function (row) {
         orderQtyDaily.recalculate(row);
         orderQtyMonthly.recalculate(row);
-        // Pausing the connection is useful if your processing involves I/O
     })
     .on('end', function () {
         console.log('Loading finished');
@@ -85,5 +68,4 @@ query
         }).listen(MS_PORT, MS_HOST);
         console.log('Listening on ' + MS_HOST + ':' + MS_PORT);
     });
-connection.end();
-
+multiship.close();
