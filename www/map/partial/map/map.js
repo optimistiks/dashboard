@@ -4,9 +4,9 @@ angular.module('map').controller('MapCtrl',function($scope){
         var width = 960;
         var height = 500;
 
-        var svg = d3.select("body").append("svg")
-            .attr("width", width)
-            .attr("height", height);
+        var svg = d3.select("#map")
+            .attr("viewBox", "0 0 " + width + " " + height )
+            .attr("preserveAspectRatio", "xMinYMin");
 
         var projection = d3.geo.albers()
             .rotate([-105, 0])
@@ -17,22 +17,22 @@ angular.module('map').controller('MapCtrl',function($scope){
 
         var path = d3.geo.path().projection(projection);
 
-        var color_domain = [50, 150, 350, 750, 1500]
-        var color = d3.scale.threshold()
-            .domain(color_domain)
-            .range(["#adfcad", "#ffcb40", "#ffba00", "#ff7d73", "#ff4e40", "#ff1300"]);
+//        var color_domain = [50, 150, 350, 750, 1500];
+//        var color = d3.scale.threshold()
+//            .domain(color_domain)
+//            .range(["#adfcad", "#ffcb40", "#ffba00", "#ff7d73", "#ff4e40", "#ff1300"]);
 
         var ready = function (error, map, data) {
             console.log('MAP READY', error, map, data);
 
             svg.append("g")
-                .attr("class", "region")
+                .attr("class", "russia")
                 .selectAll("path")
                 .data(topojson.feature(map, map.objects.russia).features)
                 .enter().append("path")
                 .attr("d", path)
                 .style("fill", function(d) {
-                    return color(50);
+                    return '#2b908f';
                 })
                 .style("opacity", 0.8)
         };
