@@ -15,7 +15,7 @@ Multiship.prototype.orders = function () {
             // Handle error, an 'end' event will be emitted after this as well
         })
         .on('fields', function (fields) {
-            console.log('Fields', fields);
+            //console.log('Fields', fields);
         });
 };
 

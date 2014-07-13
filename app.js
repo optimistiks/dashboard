@@ -12,8 +12,6 @@ var SJS_HOST = '0.0.0.0';
 var SJS_PORT = 9999;
 
 var connections = [];
-var chat = sockjs.createServer();
-var server = http.createServer();
 
 console.log('Loading started');
 multiship.orders()
@@ -25,6 +23,8 @@ multiship.orders()
         console.log('Loading finished');
         console.log('Orders daily:', orderQtyDaily.getValue());
         console.log('Orders monthly:', orderQtyMonthly.getValue());
+        var chat = sockjs.createServer();
+        var server = http.createServer();
         chat.on('connection', function (conn) {
             connections.push(conn);
             conn.write("Orders daily " + orderQtyDaily.getValue());
