@@ -1,21 +1,5 @@
-angular.module('rootView').controller('IndexCtrl', function ($scope, sockjs) {
+angular.module('map').controller('MapCtrl',function($scope){
 
-    $scope.messages = [];
-
-    sockjs.setHandler('open', function (event) {
-        console.log('SOCKET open', arguments);
-    });
-
-    sockjs.setHandler('close', function (event) {
-        console.log('SOCKET close', arguments);
-    });
-
-    sockjs.setHandler('message', function (event) {
-        $scope.messages.push(event.data);
-        console.log('SOCKET message', arguments);
-    });
-
-    //d3
     $(document).ready(function () {
         var width = 960;
         var height = 500;
@@ -48,14 +32,14 @@ angular.module('rootView').controller('IndexCtrl', function ($scope, sockjs) {
                 .enter().append("path")
                 .attr("d", path)
                 .style("fill", function(d) {
-                    console.log('REGION', d.properties.region);
                     return color(50);
                 })
                 .style("opacity", 0.8)
         };
 
         queue()
-            .defer(d3.json, "/rootView/partial/index/russia_1e-7sr.json")
+            .defer(d3.json, "/map/russia_1e-7sr.json")
             .await(ready);
     });
+
 });

@@ -24,8 +24,8 @@
         "file": "connection/connection.js"
       },
       {
-        "name": "rootView",
-        "file": "rootView/rootView.js"
+        "name": "map",
+        "file": "map/map.js"
       }
     ]
   }

@@ -1,12 +1,12 @@
-describe('IndexCtrl', function() {
+describe('MapCtrl', function() {
 
-	beforeEach(module('rootView', 'connection'));
+	beforeEach(module('map'));
 
 	var scope,ctrl;
 
     beforeEach(inject(function($rootScope, $controller) {
       scope = $rootScope.$new();
-      ctrl = $controller('IndexCtrl', {$scope: scope});
+      ctrl = $controller('MapCtrl', {$scope: scope});
     }));	
 
 	it('should ...', inject(function() {

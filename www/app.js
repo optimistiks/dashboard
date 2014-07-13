@@ -1,4 +1,4 @@
-angular.module('dashboard', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ngAnimate', 'connection', 'rootView']);
+angular.module('dashboard', ['ui.bootstrap', 'ui.utils', 'ui.router', 'ngAnimate', 'connection', 'map']);
 
 angular.module('dashboard').config(function($stateProvider, $urlRouterProvider) {
 
