@@ -1,28 +1,31 @@
 {
-  "name": "dashboard",
-  "version": "0.0.0",
-  "main": "index.html",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components"
-  ],
-  "dependencies": {
-    "jquery": "~2.0",
-    "underscore": "~1.5",
-    "bootstrap": "~3.1",
-    "angular": "~1.2",
-    "angular-ui-router": "~0.2",
-    "angular-animate": "~1.2",
-    "angular-resource": "~1.2",
-    "angular-cookies": "~1.2",
-    "angular-mocks": "~1.2",
-    "angular-ui-utils": "~0.1",
-    "angular-bootstrap": "~0.10",
-    "angular-sockjs": "0.0.1",
-    "moment": "~2.5",
-    "less.js": "~1.6",
-    "font-awesome": "~4.0",
-    "bower-sockjs-client": "~0.3"
-  }
+    "name": "dashboard",
+    "version": "0.0.0",
+    "main": "index.html",
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components"
+    ],
+    "dependencies": {
+        "jquery": "~2.0",
+        "underscore": "~1.5",
+        "bootstrap": "~3.1",
+        "angular": "~1.2",
+        "angular-ui-router": "~0.2",
+        "angular-animate": "~1.2",
+        "angular-resource": "~1.2",
+        "angular-cookies": "~1.2",
+        "angular-mocks": "~1.2",
+        "angular-ui-utils": "~0.1",
+        "angular-bootstrap": "~0.10",
+        "angular-sockjs": "0.0.1",
+        "moment": "~2.5",
+        "less.js": "~1.6",
+        "font-awesome": "~4.0",
+        "bower-sockjs-client": "~0.3",
+        "d3": "http://d3js.org/d3.v3.min.js",
+        "d3-queue": "http://d3js.org/queue.v1.min.js",
+        "d3-topojson": "http://d3js.org/topojson.v1.min.js"
+    }
 }
