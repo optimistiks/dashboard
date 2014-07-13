@@ -17,6 +17,34 @@ angular.module('map').controller('MapCtrl', function ($scope) {
 
         var path = d3.geo.path().projection(projection);
 
+        var tweenDash = function () {
+            //This function is used to animate the dash-array property, which is a
+            //  nice hack that gives us animation along some arbitrary path (in this
+            //  case, makes it look like a line is being drawn from point A to B)
+            var len = this.getTotalLength(),
+                interpolate = d3.interpolateString("0," + len, len + "," + len);
+
+            return function (t) {
+                return interpolate(t);
+            };
+        };
+
+        var lineTransition = function (path) {
+            path.transition()
+                //NOTE: Change this number (in ms) to make lines draw faster or slower
+                .duration(3000)
+                .attrTween("stroke-dasharray", tweenDash)
+                .each("end", function (d, i) {
+                    ////Uncomment following line to re-transition
+                    //d3.select(this).call(transition);
+
+                    //We might want to do stuff when the line reaches the target,
+                    //  like start the pulsating or add a new point or tell the
+                    //  NSA to listen to this guy's phone calls
+                    //doStuffWhenLineFinishes(d,i);
+                });
+        };
+
 //        var color_domain = [50, 150, 350, 750, 1500];
 //        var color = d3.scale.threshold()
 //            .domain(color_domain)
@@ -65,9 +93,9 @@ angular.module('map').controller('MapCtrl', function ($scope) {
                     });
 
                 point.append("circle")
-                    .attr("r", 3)
+                    .attr("r", 1)
                     .style("fill", "white")
-                    .style("opacity", 0.1);
+                    .style("opacity", 0.5);
 
                 point.append("text")
                     .attr("x", 5)
@@ -75,6 +103,44 @@ angular.module('map').controller('MapCtrl', function ($scope) {
                         return location.name;
                     });
             });
+
+            var links = [
+                {
+                    type: "LineString",
+                    coordinates: [
+                        [ locations[0].lng, locations[0].lat ],
+                        [ locations[1].lng, locations[1].lat ]
+                    ]
+                }
+            ];
+
+            var pathArcs = arcs.selectAll(".arc")
+                .data(links);
+
+            //enter
+            pathArcs.enter()
+                .append("path").attr({
+                    'class': 'arc'
+                }).style({
+                    fill: 'none',
+                });
+
+            //update
+            pathArcs.attr({
+                //d is the points attribute for this path, we'll draw
+                //  an arc between the points using the arc function
+                d: path
+            })
+                .style({
+                    'stroke': '#7798BF',
+                    'stroke-width': '1px'
+                })
+                // Uncomment this line to remove the transition
+                .call(lineTransition);
+
+            //exit
+            pathArcs.exit().remove();
+
         };
 
         queue()
