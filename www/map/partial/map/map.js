@@ -1,11 +1,11 @@
-angular.module('map').controller('MapCtrl',function($scope){
+angular.module('map').controller('MapCtrl', function ($scope) {
 
     $(document).ready(function () {
         var width = 960;
         var height = 500;
 
         var svg = d3.select("#map")
-            .attr("viewBox", "0 0 " + width + " " + height )
+            .attr("viewBox", "0 0 " + width + " " + height)
             .attr("preserveAspectRatio", "xMinYMin");
 
         var projection = d3.geo.albers()
@@ -28,42 +28,53 @@ angular.module('map').controller('MapCtrl',function($scope){
         var ready = function (error, map, data) {
             console.log('MAP READY', error, map, data);
 
-            svg.append("g")
+            var regions = svg.append('g');
+            var points = svg.append('g');
+            var arcs = svg.append('g');
+
+            regions
                 .attr("class", "russia")
                 .selectAll("path")
                 .data(topojson.feature(map, map.objects.russia).features)
                 .enter().append("path")
                 .attr("d", path)
-                .style("fill", function(d) {
+                .style("fill", function (d) {
                     return '#2b908f';
                 })
                 .style("opacity", 0.8);
 
-            var city = svg.append("g")
-                .attr("class", "city")
-                .attr("transform", function(d) { return "translate(" + projection([37.9327, 55.796985]) + ")"; });
+            var locations = [
+                {
+                    name: 'Балашиха',
+                    lng: 37.9327,
+                    lat: 55.796985
+                },
+                {
+                    name: 'Южно-Сахалинск',
+                    lng: 142.736913,
+                    lat: 46.94379
+                }
+            ];
 
-            city.append("circle")
-                .attr("r", 3)
-                .style("fill", "white")
-                .style("opacity", 0.1);
+            angular.forEach(locations, function (location) {
+                var point = points
+                    .append("g")
+                    .attr("class", "city")
+                    .attr("transform", function (d) {
+                        return "translate(" + projection([location.lng, location.lat]) + ")";
+                    });
 
-            city.append("text")
-                .attr("x", 5)
-                .text(function(d) { return 'Булошохы'; });
+                point.append("circle")
+                    .attr("r", 3)
+                    .style("fill", "white")
+                    .style("opacity", 0.1);
 
-            city = svg.append("g")
-                .attr("class", "city")
-                .attr("transform", function(d) { return "translate(" + projection([142.736913, 46.94379]) + ")"; });
-
-            city.append("circle")
-                .attr("r", 3)
-                .style("fill", "white")
-                .style("opacity", 0.1);
-
-            city.append("text")
-                .attr("x", 5)
-                .text(function(d) { return 'ЮжноСаха'; });
+                point.append("text")
+                    .attr("x", 5)
+                    .text(function (d) {
+                        return location.name;
+                    });
+            });
         };
 
         queue()
